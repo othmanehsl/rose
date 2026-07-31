@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pour toi 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Variables ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --lightest: #fff0f5;
+      --light:    #ffd6e7;
+      --pastel:   #ffb3d1;
+      --mid:      #ff80ab;
+      --fuchsia:  #e91e8c;
+      --red:      #c62a47;
+      --bordeaux: #8b1a33;
+      --text:     #5a2030;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--light);
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── Floating background particles ── */
+    #bg-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      bottom: -60px;
+      animation: floatUp linear infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0)      translateX(0)    rotate(0deg);   opacity: 0; }
+      8%   {                                                                  opacity: .55; }
+      50%  { transform: translateY(-50vh)  translateX(16px) rotate(180deg); }
+      92%  {                                                                  opacity: .3; }
+      100% { transform: translateY(-108vh) translateX(-4px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── Section base ── */
+    .section {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      position: relative;
+      z-index: 1;
+      scroll-snap-align: start;
+    }
+
+    /* ══════════════════════════════
+       SECTION 1 — WELCOME
+    ══════════════════════════════ */
+    #s1 {
+      background: linear-gradient(155deg, #fff5f9 0%, #ffd6e7 55%, #ffb3d1 100%);
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .s1-heart {
+      font-size: clamp(4rem, 16vw, 7rem);
+      display: block;
+      animation: heartbeat 1.8s ease-in-out infinite, fadeInScale .8s ease both;
+    }
+
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      15%     { transform: scale(1.18); }
+      30%     { transform: scale(1.02); }
+      45%     { transform: scale(1.1); }
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ★ MODIFIE LE TITRE ICI ★ */
+    .s1-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.6rem, 11vw, 5rem);
+      color: var(--red);
+      line-height: 1.15;
+      animation: slideDown .9s cubic-bezier(.22,1,.36,1) .2s both;
+    }
+
+    .s1-title em {
+      display: block;
+      font-size: .6em;
+      color: var(--bordeaux);
+      font-style: normal;
+      letter-spacing: .04em;
+      margin-top: .3em;
+    }
+
+    .s1-sub {
+      font-size: clamp(.9rem, 3.6vw, 1.1rem);
+      color: var(--bordeaux);
+      font-weight: 300;
+      animation: slideUp .9s cubic-bezier(.22,1,.36,1) .5s both;
+      max-width: 300px;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--red);
+      opacity: .7;
+      font-size: .78rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      animation: nudge 2.5s ease-in-out infinite 1.5s;
+    }
+    .scroll-cue::after { content: '↓'; font-size: 1.2rem; }
+
+    @keyframes nudge {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%     { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ══════════════════════════════
+       SECTION 2 — MESSAGE
+    ══════════════════════════════ */
+    #s2 {
+      background: linear-gradient(155deg, #fff5f9 0%, #ffd6e7 55%, #ffc0d4 100%);
+    }
+
+    .card {
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 2.5rem 1.8rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow:
+        0 8px 40px rgba(233,30,140,.12),
+        0 2px 10px rgba(233,30,140,.07),
+        inset 0 1px 0 rgba(255,255,255,.9);
+      border: 1px solid rgba(255,179,209,.5);
+    }
+
+    /* ★ MODIFIE LA SALUTATION ICI ★ */
+    .card-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      color: var(--red);
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ★★★ MODIFIE TON MESSAGE ICI (dans le HTML) ★★★ */
+    .card-body {
+      font-size: clamp(.92rem, 3.5vw, 1.05rem);
+      color: var(--text);
+      line-height: 2;
+      text-align: center;
+    }
+    .card-body p + p { margin-top: 1rem; }
+
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0 .8rem;
+      color: var(--mid);
+      font-size: 1.1rem;
+      letter-spacing: .45rem;
+    }
+
+    /* ★ MODIFIE LA SIGNATURE ICI ★ */
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.7rem;
+      color: var(--fuchsia);
+      text-align: right;
+    }
+
+    /* ══════════════════════════════
+       SECTION 3 — BOUTONS
+    ══════════════════════════════ */
+    #s3 {
+      background: linear-gradient(155deg, #ffd6e7 0%, #ffb3d1 55%, #ff99c2 100%);
+      gap: .8rem;
+    }
+
+    /* ★ MODIFIE LA QUESTION ICI ★ */
+    .s3-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2rem, 8.5vw, 3.2rem);
+      color: var(--bordeaux);
+      text-align: center;
+    }
+
+    .s3-sub {
+      font-size: clamp(.85rem, 3.2vw, .98rem);
+      color: var(--red);
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Bouton OUI */
+    #btn-yes {
+      display: block;
+      background: linear-gradient(135deg, var(--fuchsia) 0%, var(--red) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 1.1rem 2.8rem;
+      font-size: clamp(1rem, 4vw, 1.15rem);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(233,30,140,.4);
+      transition: box-shadow .15s ease;
+      min-width: 220px;
+      position: relative;
+      overflow: hidden;
+      /* scale contrôlé par JS */
+    }
+    #btn-yes:active { filter: brightness(.92); }
+
+    /* Reflet animé sur Oui */
+    #btn-yes::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%);
+      background-size: 200% 100%;
+      background-position: 200% 0;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Bouton NON */
+    #btn-no {
+      display: block;
+      background: rgba(255,255,255,.72);
+      color: var(--red);
+      border: 2px solid var(--pastel);
+      border-radius: 50px;
+      padding: .85rem 2rem;
+      font-size: clamp(.88rem, 3.4vw, 1rem);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 165px;
+      touch-action: none;
+      transition:
+        left  .38s cubic-bezier(.34,1.56,.64,1),
+        top   .38s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    /* Quand fixé pour esquiver */
+    #btn-no.is-fixed {
+      position: fixed;
+      z-index: 600;
+      margin: 0;
+    }
+
+    #btn-no.wobble { animation: wobble .5s ease; }
+    @keyframes wobble {
+      0%,100% { transform: rotate(0); }
+      20%     { transform: rotate(-8deg); }
+      40%     { transform: rotate(8deg); }
+      60%     { transform: rotate(-5deg); }
+      80%     { transform: rotate(4deg); }
+    }
+
+    #funny-msg {
+      font-size: clamp(.83rem, 3.1vw, .95rem);
+      color: var(--bordeaux);
+      font-style: italic;
+      text-align: center;
+      min-height: 1.5em;
+      max-width: 300px;
+      padding: .5rem 1rem 0;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    #funny-msg.hide { opacity: 0; transform: translateY(6px); }
+
+    /* ══════════════════════════════
+       ÉCRAN DE CÉLÉBRATION
+    ══════════════════════════════ */
+    #celebration {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(155deg, var(--lightest) 0%, var(--light) 55%, var(--pastel) 100%);
+      z-index: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+      text-align: center;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .9s ease;
+    }
+    #celebration.show { opacity: 1; pointer-events: all; }
+
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .cel-emoji {
+      font-size: clamp(3rem, 13vw, 5.5rem);
+      display: block;
+      opacity: 0;
+      animation: popIn .7s cubic-bezier(.34,1.56,.64,1) .3s forwards;
+    }
+
+    .cel-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.4rem, 11vw, 4.8rem);
+      color: var(--red);
+      line-height: 1.2;
+      margin-top: .5rem;
+      opacity: 0;
+      animation: popIn .7s cubic-bezier(.34,1.56,.64,1) .55s forwards;
+    }
+
+    /* ★ MODIFIE LE MESSAGE FINAL ICI ★ */
+    .cel-msg {
+      font-size: clamp(.95rem, 3.8vw, 1.1rem);
+      color: var(--text);
+      line-height: 1.9;
+      margin-top: 1.5rem;
+      max-width: 360px;
+      opacity: 0;
+      animation: slideUp .8s ease 1s forwards;
+    }
+
+    /* Cadre Polaroid */
+    .polaroid {
+      margin-top: 2.2rem;
+      background: #fff;
+      padding: .9rem .9rem 2.8rem;
+      box-shadow:
+        0 12px 35px rgba(139,26,51,.18),
+        0 4px 12px rgba(0,0,0,.1),
+        3px 4px 0 rgba(255,179,209,.5);
+      transform: rotate(-2.5deg);
+      width: min(240px, 70vw);
+      opacity: 0;
+      animation: slideUp .8s ease 1.3s forwards;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+      flex-shrink: 0;
+    }
+    .polaroid:hover, .polaroid:active { transform: rotate(0) scale(1.04); }
+
+    /* ★★★ REMPLACE "notre-photo.jpg" PAR TA PHOTO ★★★ */
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      min-height: 150px;
+      background: linear-gradient(135deg, var(--light), var(--pastel));
+    }
+
+    /* ★ MODIFIE LA LÉGENDE ★ */
+    .polaroid-caption {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--red);
+      text-align: center;
+      margin-top: .8rem;
+    }
+
+    /* Bouton musique */
+    .music-btn {
+      margin-top: 2.5rem;
+      background: rgba(255,255,255,.78);
+      border: 2px solid var(--pastel);
+      border-radius: 50px;
+      padding: .7rem 1.6rem;
+      font-size: clamp(.85rem, 3.2vw, .95rem);
+      color: var(--red);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      box-shadow: 0 4px 16px rgba(233,30,140,.14);
+      opacity: 0;
+      animation: slideUp .8s ease 1.8s forwards;
+      transition: background .2s, transform .2s;
+    }
+    .music-btn:hover, .music-btn:active {
+      background: rgba(255,255,255,.96);
+      transform: scale(1.05);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.2) rotate(-10deg); }
+      to   { opacity: 1; transform: scale(1)  rotate(0); }
+    }
+
+    /* Utilisée par JS pour les cœurs qui pleuvent */
+    @keyframes rainFall {
+      0%   { transform: translateY(0)      rotate(0);    opacity: 1; }
+      90%  {                                              opacity: .7; }
+      100% { transform: translateY(108vh)  rotate(200deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Particules de fond flottantes -->
+<div id="bg-particles"></div>
+
+<!-- Canvas confettis (visible seulement à la célébration) -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ════════════════════════════
+     SECTION 1 — ACCUEIL
+════════════════════════════ -->
+<section class="section" id="s1">
+
+  <span class="s1-heart">💗</span>
+
+  <!-- ★ MODIFIE LE TITRE ICI ★ -->
+  <h1 class="s1-title">
+    SOPHIA<br>désolé…
+  </h1>
+
+  <p class="s1-sub">baghi ngoulk chi 7aja<br></p>
+
+  <div class="scroll-cue">HBTI LTE7T</div>
+</section>
+
+<!-- ════════════════════════════
+     SECTION 2 — MESSAGE
+════════════════════════════ -->
+<section class="section" id="s2">
+  <div class="card">
+
+    <!-- ★ MODIFIE LA SALUTATION ICI ★ -->
+    <h2 class="card-title">ZIIN DYAAAALI</h2>
+
+    <!-- ★★★ MODIFIE TON MESSAGE PERSONNEL ICI ★★★ -->
+    <div class="card-body">
+      <p>
+        I'm sorry, madertch hakak lbarh bach n3sbeek exprès ghi vraiment knt 3iyan bzzef w knt baghi ghir n3ess walakin en meme temps nhder m3ak, ghi vraiment j'avais pas d'énergie bach nhder fchi 7aja wqt bzzef w safi
+      </p>
+    </div>
+    <!-- ★★★ FIN DU MESSAGE ★★★ -->
+
+    <div class="divider">♥ ♥ ♥</div>
+
+    <!-- ★ MODIFIE LA SIGNATURE ICI ★ -->
+    <p class="signature">— Bebe Othmane</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════
+     SECTION 3 — LE JEU
+════════════════════════════ -->
+<section class="section" id="s3">
+
+  <!-- ★ MODIFIE LA QUESTION ICI ★ -->
+  <h2 class="s3-title">Est-ce que tu me pardonnes ?</h2>
+
+  <button id="btn-yes" onclick="onYes()">Oui Ziin dyali 💕</button>
+  <button id="btn-no">Non b3d mnii</button>
+
+  <p id="funny-msg" class="hide"></p>
+</section>
+
+<!-- ════════════════════════════
+     ÉCRAN DE CÉLÉBRATION
+════════════════════════════ -->
+<div id="celebration">
+
+  <span class="cel-emoji">🎉</span>
+
+  <!-- ★ MODIFIE LE TITRE DE CÉLÉBRATION ICI ★ -->
+  <h2 class="cel-title">LGHZAALA <br>DYAALI</h2>
+
+  <!-- ★ MODIFIE LE MESSAGE FINAL ICI ★ -->
+  <p class="cel-msg">
+    saaafi nsaay ach tra mat3awdsh kouni ghi 3la khatrk.
+    Bisouuuuus 
+  </p>
+
+  <!-- ★★★ REMPLACE "notre-photo.jpg" PAR LE CHEMIN DE TA PHOTO ★★★ -->
+  <div class="polaroid">
+    <img
+      src="IMG_1149.jpg"
+      alt="Nous deux"
+      onerror="this.style.background='linear-gradient(135deg,#ffd6e7,#ffb3d1)'"
+    >
+    <!-- ★ MODIFIE LA LÉGENDE ICI ★ -->
+  </div>
+
+  <!-- ★★★ REMPLACE "ta-chanson.mp3" PAR TON FICHIER AUDIO ★★★
+       (mets le fichier .mp3 dans le même dossier que index.html) -->
+<a href="https://www.youtube.com/watch?v=4GuqB1BQVr4" target="_blank" class="music-btn">
+  <span id="music-icon">▶</span>
+  <span id="music-label">Jouer une chanson</span>
+</a>
+
+<script>
+/* ════════════════════════════════════════════
+   MESSAGES RIGOLOS — modifie cette liste !
+════════════════════════════════════════════ */
+
+/* ════════════════════════════
+   PARTICULES DE FOND
+════════════════════════════ */
+(function () {
+  const container = document.getElementById('bg-particles');
+  const symbols = ['💕','💗','💖','💓','🌸','✨','💝','🌷'];
+  for (let i = 0; i < 15; i++) {
+    const el = document.createElement('span');
+    el.className = 'particle';
+    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    const size  = (.7 + Math.random() * 1.1).toFixed(2);
+    const left  = (Math.random() * 95).toFixed(1);
+    const dur   = (8 + Math.random() * 9).toFixed(1);
+    const delay = -(Math.random() * 12).toFixed(1);
+    el.style.cssText = `left:${left}%;font-size:${size}rem;animation-duration:${dur}s;animation-delay:${delay}s`;
+    container.appendChild(el);
+  }
+})();
+
+/* ════════════════════════════
+   LOGIQUE DU BOUTON NON
+════════════════════════════ */
+const btnNo   = document.getElementById('btn-no');
+const btnYes  = document.getElementById('btn-yes');
+const funnyEl = document.getElementById('funny-msg');
+
+let dodgeCount = 0;
+let msgIndex   = 0;
+let isFixed    = false;
+let yesScale   = 1;
+
+/* Passe le bouton en position fixe calquée sur sa position actuelle */
+function makeFixed() {
+  if (isFixed) return;
+  const r = btnNo.getBoundingClientRect();
+  btnNo.style.left  = r.left + 'px';
+  btnNo.style.top   = r.top  + 'px';
+  btnNo.style.width = r.width + 'px';
+  btnNo.classList.add('is-fixed');
+  isFixed = true;
+}
+
+/* Fait fuir le bouton à un endroit aléatoire dans l'écran */
+function dodge() {
+  makeFixed();
+
+  const bw  = btnNo.offsetWidth;
+  const bh  = btnNo.offsetHeight;
+  const pad = 16;
+  const vw  = window.innerWidth;
+  const vh  = window.innerHeight;
+  const cx  = parseFloat(btnNo.style.left) || vw / 2;
+  const cy  = parseFloat(btnNo.style.top)  || vh / 2;
+
+  let nx, ny, tries = 0;
+  do {
+    nx = pad + Math.random() * (vw - bw - pad * 2);
+    ny = pad + Math.random() * (vh - bh - pad * 2);
+    tries++;
+  } while (tries < 12 && Math.hypot(nx - cx, ny - cy) < 90);
+
+  btnNo.style.left = nx + 'px';
+  btnNo.style.top  = ny + 'px';
+
+  /* Animation de tremblement à l'atterrissage */
+  btnNo.classList.remove('wobble');
+  void btnNo.offsetWidth; /* force reflow */
+  btnNo.classList.add('wobble');
+
+  dodgeCount++;
+
+  /* Agrandir le bouton Oui (max 1.9×) */
+  yesScale = Math.min(1 + dodgeCount * 0.1, 1.9);
+  btnYes.style.transform = `scale(${yesScale})`;
+
+  /* Afficher un message rigolo */
+  funnyEl.classList.add('hide');
+  setTimeout(() => {
+    funnyEl.textContent = funnyMessages[msgIndex % funnyMessages.length];
+    msgIndex++;
+    funnyEl.classList.remove('hide');
+  }, 200);
+}
+
+/* Desktop : fuir au survol */
+btnNo.addEventListener('mouseenter', dodge);
+
+/* Mobile : fuir au toucher (preventDefault empêche le clic) */
+btnNo.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  dodge();
+}, { passive: false });
+
+/* ════════════════════════════
+   BOUTON OUI
+════════════════════════════ */
+function onYes() {
+  triggerCelebration();
+}
+
+/* ════════════════════════════
+   CÉLÉBRATION
+════════════════════════════ */
+function triggerCelebration() {
+  document.getElementById('celebration').classList.add('show');
+  launchConfetti();
+  rainHearts();
+}
+
+/* ── Confettis canvas ── */
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx    = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const palette = ['#e91e8c','#c62a47','#ffb3d1','#ff80ab','#fff','#ffd6e7','#ff4081','#f48fb1'];
+  const pieces  = [];
+
+  for (let i = 0; i < 140; i++) {
+    pieces.push({
+      x:     Math.random() * canvas.width,
+      y:     -Math.random() * canvas.height * .6,
+      vx:    (Math.random() - .5) * 2.5,
+      vy:    2.5 + Math.random() * 3.5,
+      r:     4 + Math.random() * 7,
+      rot:   Math.random() * Math.PI * 2,
+      drot:  (Math.random() - .5) * .2,
+      color: palette[i % palette.length],
+      heart: i % 5 === 0,
+      alpha: .85 + Math.random() * .15,
+      sine:  Math.random() * Math.PI * 2,
+    });
+  }
+
+  let frame = 0;
+  const MAX = 290;
+
+  (function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+
+    pieces.forEach(p => {
+      p.x   += p.vx + Math.sin(frame * .04 + p.sine) * .5;
+      p.y   += p.vy;
+      p.rot += p.drot;
+      if (p.y < canvas.height + 30) alive = true;
+
+      ctx.save();
+      ctx.globalAlpha = p.alpha * Math.max(0, 1 - frame / MAX);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+
+      if (p.heart) {
+        /* Cœur dessiné à la main */
+        ctx.beginPath();
+        ctx.moveTo(0, p.r * .3);
+        ctx.bezierCurveTo( p.r,    -p.r * .3, p.r * 1.5,  p.r * .7, 0, p.r * 1.6);
+        ctx.bezierCurveTo(-p.r * 1.5, p.r * .7, -p.r, -p.r * .3, 0, p.r * .3);
+        ctx.fill();
+      } else if (p.r > 7) {
+        ctx.fillRect(-p.r * .8, -p.r * .5, p.r * 1.6, p.r);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r * .7, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    });
+
+    frame++;
+    if (alive && frame < MAX) requestAnimationFrame(tick);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  })();
+}
+
+/* ── Pluie de cœurs flottants ── */
+function rainHearts() {
+  const emojis = ['💕','💗','💖','💝','💓','🌸','✨'];
+  let count = 0;
+  const id = setInterval(() => {
+    if (count++ > 30) { clearInterval(id); return; }
+    const el  = document.createElement('div');
+    const dur = 1.8 + Math.random() * 2.2;
+    el.style.cssText = [
+      'position:fixed',
+      `left:${Math.random() * 100}vw`,
+      'top:-50px',
+      `font-size:${1 + Math.random() * 1.5}rem`,
+      'z-index:998',
+      'pointer-events:none',
+      `animation:rainFall ${dur}s ease-in forwards`,
+    ].join(';');
+    el.textContent = emojis[count % emojis.length];
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), (dur + .2) * 1000);
+  }, 170);
+}
+
+/* ════════════════════════════
+   MUSIQUE (optionnelle)
+════════════════════════════ */
+let musicOn = false;
+
+function toggleMusic() {
+  const audio = document.getElementById('bg-music');
+  const icon  = document.getElementById('music-icon');
+  const label = document.getElementById('music-label');
+
+  if (musicOn) {
+    audio.pause();
+    icon.textContent  = '▶';
+    label.textContent = 'Jouer une chanson';
+    musicOn = false;
+  } else {
+    audio.play().catch(() => {
+      label.textContent = '⚠ Ajoute ta-chanson.mp3 !';
+    });
+    icon.textContent  = '⏸';
+    label.textContent = 'Pause';
+    musicOn = true;
+  }
+}
+</script>
+</body>
+</html>
